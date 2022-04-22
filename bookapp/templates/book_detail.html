@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+
+{% block title %}
+     <title>Book Site | Book Detail </title>
+     {% endblock %}
+
+{% block content %}
+<br><br><br>
+<div class="card shadow p-3 mb-5 bg-white rounded" style="width: 80%; margin:auto;">
+    <img src='{{book.cover_image.url}}' class="card-img-top" alt="..." style="width:50%; margin:auto;" >
+    <div class="card-body">
+<center>
+     <strong> <h2 class="card-title" style="text-weight:750;">"{{book.title}}"</h2></strong>
+      <h3 class="card-text text-muted">By {{book.author}}</h3>
+    </center>
+<hr>
+      <p class="card-text">{{book.summary}}</p>
+      <a href = '{{book.pdf.url}}' download="{{book.pdf.url}}">
+        <button id = 'download' class="btn btn-outline-dark">
+            Download PDF
+            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+                <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+              </svg>
+        </button></a>    </div> </div>
+
+
+    <div class = 'container rounded'  style=" background-color: #ababab; font-weight:750; font-size:45px; text-align: center;">
+        <p>
+You also may like:</p>            
+    </div>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700');
+        *
+        {
+            -webkit-box-sizing: border-box;
+                    box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        a
+        {
+            text-decoration: none;
+        }
+        .product-card {
+            width: 320px;
+            height: 550px;
+            
+            position: relative;
+            box-shadow: 0 2px 7px #dfdfdf;
+            margin: 0px auto;
+            background: #fafafa;
+        }
+        
+        .badge {
+            position: absolute;
+            left: 0;
+            top: 20px;
+            text-transform: uppercase;
+            font-size: 13px;
+            font-weight: 700;
+            background: red;
+            color: #fff;
+            padding: 3px 10px;
+        }
+        
+        .product-tumb {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 300px;
+            padding: 40px;
+            background: #f0f0f0;
+        }
+        
+        .product-tumb img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+        
+        .product-details {
+            padding: 10px;
+    
+        }
+        
+        .product-catagory {
+            display: block;
+            font-size: 20px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #ccc;
+            margin-bottom: 18px;
+        }
+        
+        .product-details p {
+            font-size: 15px;
+            line-height: 22px;
+            margin-bottom: 18px;
+            color: #999;
+        }
+    
+        .ellipse{
+            word-break: break-word;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            max-height: 200px; /* fallback */
+            -webkit-line-clamp: 1; /* number of lines to show */
+            -webkit-box-orient: vertical;
+         }
+    </style>
+
+        {% for similar_book in similar_books %}
+        <div style="display:inline-block;">
+            <div class="product-card shadow p-3 mb-5 bg-white rounded">
+                
+            <div class="product-tumb rounded">
+            <a href = "{% url 'book_detail' book.slug %}">
+
+            <img style="height:290px" src="{{similar_book.cover_image.url}}" alt="">
+            </a>
+            </div>
+            
+                <div class="product-details">
+            
+            <center>
+            <h2><a href="{% url 'book_detail' book.slug %}" style="color:#454545" class="ellipse" > 
+            "{{ similar_book.title }}"
+            </a></h2>
+            <p>
+            <span class="product-catagory">
+            <a href="#" class="ellipse">
+            by, {{similar_book.author}}
+            </a>
+            <br>
+            <small class="text-muted">
+            &nbsp&nbsp dep & batch
+            </small>
+            </span>
+            </p>
+            </center>
+            
+                    {% comment %} <p class="card-text"><div class="ellipse" style="color: #565656; ">        
+                        {{ post.body|safe}}    
+                    </p> 
+            <div class="product-bottom-details" style="display: flex;">
+            <small class="text-muted float-right">Likes({{post.likes.count}}) | Comments({{post.comments.count}})</small>
+            
+                       <div class="product-price"><small>$96.00</small>$230.99</div> {% endcomment %}
+            <div class="product-links">
+            <a href="{% url 'book_detail' book.slug %}" class="btn btn-primary float-right" style="margin-top:10px">Detail</a>
+            </div>
+            </div>
+            
+                </div>
+            </div>
+            </div>
+    {% endfor %}
+<img src = "{{similar_book.cover_image.url}}">
+{% endblock %}

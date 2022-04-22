@@ -1,0 +1,21 @@
+
+     {% extends 'base.html' %}
+     {% block title %}
+     <title>Book Site | All Books</title>
+     {% endblock %}
+    {% block content %}
+   
+    <div class = 'container rounded'  style=" background-color: #ababab; font-weight:750; font-size:45px; text-align: center;">
+        <h4>All Books - </h4>
+      </div>
+     
+      <div style="display:inline-block; margin: 10px 10px;">
+        {% for book in books %}
+        {% include 'bookcard.html' %}
+        {% endfor %}
+        </div>
+{% endblock content %}
+ 
+ 
+ 
+ 

@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>Book Site | Home</title>
+    {% endblock %}
+  {% block content %}  
+
+  {% if recommended_books %}
+  <div class = 'container rounded'  style=" background-color: #ababab; font-weight:750; font-size:45px; text-align: center;">
+    <h4>Recommended Books</h4>
+  </div>
+ 
+  <div style="display:inline-block; margin: 10px 10px;">
+    {% for book in recommended_books %}
+    {% include 'bookcard.html' %}
+    {% endfor %}
+  </div>
+    {% endif %}
+  
+
+
+  {% if fiction_books %}
+  <div class = 'container rounded'  style=" background-color: #ababab; font-weight:750; font-size:45px; text-align: center;">
+    <h4>Fiction Books</h4>
+  </div>
+ 
+  <div style="display:inline-block; margin: 10px 10px;">
+    {% for book in fiction_books %}
+    {% include 'bookcard.html' %}
+    {% endfor %}
+    </div>
+    {% endif %}
+
+
+    {% if business_books %}
+    <div class = 'container rounded'  style=" background-color: #ababab; font-weight:750; font-size:45px; text-align: center;">
+      <h4>Business Books</h4>
+    </div>
+   
+    <div style="display:inline-block; margin: 10px 10px;">
+      {% for book in business_books %}
+      {% include 'bookcard.html' %}
+      {% endfor %}
+      </div>
+      {% endif %}
+
+{% endblock content %}

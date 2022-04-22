@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}
+<title>Book Site | Searched Books</title>
+{% endblock %}
+
+{% block content %}
+<div class = 'container rounded'  style=" background-color: #ababab; font-weight:750; font-size:45px; text-align: center;">
+  <center><h2>Search Result</h2></center></div>
+
+        {% if searched_books %}
+     
+      <div style="display:inline-block; margin: 10px 10px;">
+        {% for book in searched_books %}
+        {% include 'bookcard.html' %}
+        {% endfor %}
+        </div>
+      {% else %}
+      <div class = 'row'>
+          <h3>No book available with that name!</h3>
+      </div>
+      {% endif %}
+      
+
+  {% endblock %}

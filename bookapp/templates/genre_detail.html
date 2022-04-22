@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}
+     <title>Book Site | Genre Books </title>
+     {% endblock %}
+{% block content %}
+<br><br>
+      <div style="display:inline-block; margin: 10px 10px;">
+        {% for book in category.books.all %}
+
+        {% include 'bookcard.html' %}
+        {% endfor %}
+        </div>
+      
+      
+
+  {% endblock %}
+  
+  
