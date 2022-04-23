@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}   
+{% block title %}
+Change user name
+{% endblock %} 
+{% block content %}
+<div class="card" style="margin:auto; width:80%; padding:50px">
+
+<center><h1>Edit</h1></center>
+<h2>{{user.username}}</h2>
+			<h5 class="text-muted">{{user.email}}</h5><br>
+<div class="form-goup">
+<form method="POST">
+	{% csrf_token %}
+	{{ form|crispy }}
+	<br>
+	<button class='btn btn-secondary'>Update</button>
+</div>
+
+<hr>
+
+
+
+<a class="btn btn-primary float-right" href="{% url 'changepass' %}">Change Password</a>
+<br><br><br><br><br>
+</div>
+{% endblock %}
+

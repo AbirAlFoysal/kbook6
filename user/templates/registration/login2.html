@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}
+            Login
+{% endblock %} 
+{% block content %}
+<div class="card" style="margin:auto; width:80%; padding:50px">
+
+<form action="" method=POST>
+				{% csrf_token %}
+			
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">User name</label>
+    <input type="text" class="form-control" name="username" aria-describedby="emailHelp">
+    
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Password</label>
+    <input type="password" class="form-control" name="password">
+  </div>
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+
+				 <hr>
+  <a href="{% url 'password_reset' %}" style="color:green;">forgot Password?</a>
+
+		</form>
+</div>
+{% endblock %}

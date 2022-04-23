@@ -5,13 +5,14 @@ from django.contrib.auth import views as auth_views
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import CreateProfilePageView
+from .views import CreateProfilePageView, PasswordsChangeView
 from . import views
 
 
 urlpatterns = [
     # path('user/<str:username>', UserPostListView.as_view(), name='user-posts'),
 	path('create_profile_page/', CreateProfilePageView.as_view(), name='createprofile'),
+	path('password/', PasswordsChangeView.as_view(template_name='registration/change-password.html'),name='changepass'),
 
 	path('register/', user_views.register, name='register'),
     path('profile/', user_views.profile, name='profile'),

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}   
+{% block title %}
+            Create a profile page ...
+{% endblock %} 
+{% block content %}
+<div class="card" style="margin:auto; width:80%; padding:50px">
+
+{% if user.is_authenticated %}
+<center><h1>Profile</h1></center>
+<div class="form-goup">
+<form method="POST" enctype="multipart/form-data"><!-- ecoder type allows to use images-->
+	{% csrf_token %}
+	
+	{{ form|crispy }}
+	<button class='btn btn-secondary'>Create profile</button>
+</div>
+
+
+{% else %}
+
+
+  
+<p style="text-align:center;" ><div class="alert alert-danger" style="text-align:center;" role="alert">
+	    
+  You must be logged in.<a href="{% url 'login' %}" class="alert-link">Login</a>
+</div></p>
+</div>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<center><h1 class="card-title">{{page_user.user}}</h1></center>
+
+<div class="card mb-3" >
+  <div class="row g-0">
+    <div class="card-img">
+        {% if page_user.profile_pic %}
+            <img src="{{page_user.profile_pic.url}}" class="img-fluid rounded-start " alt="alt text">
+        {% else %} 
+            <img src="default.JPG" class="img-fluid rounded-start " alt="alt text">   
+        {% endif %}
+      
+    </div>
+    <div class="card">
+      
+      <div class="card-body">
+              <h2 style="color:#343434; margin:auto;">Bio</h2>
+
+      <p class="card-text">{{page_user.bio}}.</p>
+
+        <p class="card-text"><small class="text-muted">
+         <center> <h2>Profile</h2></center>
+
+        {% if page_user.facebook_url %}
+            <a href="{{page_user.profile.facebook_url}}">FaceBook</a> | <br>
+        {% endif %}
+         {% if page_user.instagram_url %}
+            <a href="{{page_user.profile.instagram_url}}"> Instagram</a> | <br>
+        {% endif %} 
+        {% if page_user.website_url %}
+            <a href="{{page_user.profile.website_url}}"> Website</a> |</small></p> <br>
+        {% endif %}                       
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% if not page_user.posts.all %}
+    No Posts...
+{% else %}  posts:
+    {% for post in page_user.posts.all  %}
+<p>
+{{post.title}}
+</p>
+    {% endfor %}
+
+
+{% endif %}
+
+
+
+{% endblock %}

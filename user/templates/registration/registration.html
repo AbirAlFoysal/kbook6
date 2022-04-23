@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}   
+{% block title %}
+            Register
+{% endblock %} 
+{% block content %}
+<div class="card" style="margin:auto; width:80%; padding:50px">
+
+<center><h1>Register</h1></center>
+<div class="form-goup">
+<form method="POST">
+	{% csrf_token %}
+	{{ form|crispy }}
+	<button class='btn btn-secondary'>Register</button>
+</div>
+</div>
+{% endblock %}

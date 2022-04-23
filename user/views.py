@@ -4,10 +4,12 @@ from django.contrib import messages
 from .models import Profile
 from django.views.generic import DetailView , CreateView
 from django.contrib.auth.decorators import login_required
-from .forms import UserRegisterForm, profile_page_form, UserUpdateForm, ProfileUpdateForm
+from .forms import UserRegisterForm, profile_page_form, UserUpdateForm, ProfileUpdateForm, PasswordChangingForm
 from django.views.decorators.csrf import csrf_exempt
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.views import PasswordChangeView
+from django.urls import reverse_lazy
 
 
 
@@ -90,6 +92,16 @@ def	login_user(request):
 		return render(request, 'users/login.html',{})		
 
 
+
+
+class PasswordsChangeView(PasswordChangeView):
+	form_class = PasswordChangingForm
+	success_url = reverse_lazy('profile')
+
+	def form_valid(self, form):
+
+		messages.success(self.request, "The Password has been updated.")
+		return super().form_valid(form)		
 
 
 
