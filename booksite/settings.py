@@ -37,7 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'bookapp'
+    'bookapp',
+    'user',
+    'ckeditor',    
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [

@@ -1,0 +1,136 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}
+    Document
+    {% endblock %}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+      body {background: #cdcdcd;
+        font-family: 'Roboto', sans-serif;
+      }
+
+    a{
+      text-decoration: none;
+    }
+    a:hover{
+      color:#0f0;
+    }
+    </style>
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light shadow p-3 mb-5 bg-white rounded">
+    <a class="navbar brand" href="{% url 'home' %}" >
+        <div class="col-lg-1" style="color: #000; font-size:35px; padding:0px," >
+          <strong>Home</strong></div>
+      </a>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'all_books' %}">Books</a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="#">Posts</a>
+        </li>
+        
+        
+      </ul>
+
+      <ul style="display:flex; margin-top: 7px;">
+
+
+        <div class="collapse show navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            {% if user.is_authenticated %}
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle btn btn-dark" style="color:white;" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Hello {{user.username}}
+              </a>
+           
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+              
+            <li><a class='dropdown-item' href="#" class='nav-link'>Add post</a></li>
+            
+            {% comment %} <li><a class='dropdown-item' href="{% url 'show_profile_page' user.profile.id %}" class='nav-link'>View profile</a></li> {% endcomment %}
+            {% comment %} <li><a class='dropdown-item' href="{% url 'edit_profile' %}" class='nav-link'>View profile</a></li> {% endcomment %}
+    
+           
+    
+                {% comment %} <li><a class="dropdown-item" href="{% url 'update_user' %}">Edit profile</a></li> {% endcomment %}
+    
+                <li><a class="dropdown-item" href="{% url 'profile' %}">View profile</a></li> 
+    
+                <hr>
+                <li><a class='dropdown-item' href="{% url 'logout' %}" class='nav-link'>Logout</a></li>
+    
+    
+              </ul>
+            {% else %}
+            <li class='nav-item'><a href="{% url 'register' %}" class='nav-link' style=" color:black">Register</a></li>
+            <li class='nav-item'><a href="{% url 'login2' %}" class='nav-link' style=" color:black">Login</a></li>
+    
+            {% endif %}
+          </ul>
+           </ul>&nbsp &nbsp &nbsp
+        <li class="nav nav-item">
+        <form class="d-flex" method = 'POST' action = "{% url 'book_search' %}" style="margin: 0px;">
+            <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
+            {% csrf_token %}
+            {{search_form.name_of_book}}  &nbsp
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+    </li> &nbsp &nbsp &nbsp
+ </div>
+
+
+    </div>
+</nav>
+            
+            
+
+<center><p style = "width: 90%; margin: 3px 3px; margin-top: 10px">
+        {% for category in categories %}
+        <a class="btn btn-outline-dark" href="{% url 'category_detail' category.slug %}"><strong>{{category.name}}</strong></a>
+        {% endfor %}
+</p></center>
+    
+      
+
+
+<br>
+{% block content %}
+<h1>Hello World</h1>
+{% endblock %}
+<br><br>
+
+
+
+
+
+
+    
+
+   
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+
+     {% comment %} <footer style="   position:absolute;
+    margin: auto;
+    bottom:0;
+    width:100%;
+    min-height:25px;  
+    background:#676767; 
+    text-align: center;">
+        <small><strong><a class="text text-white" href="https://www.facebook.com/abir.al.foysal.AB" > Contact Devoloper !</a></strong></small>
+    </footer> {% endcomment %}
+</body>
+   
+</html> 

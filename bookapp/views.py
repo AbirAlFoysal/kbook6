@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Book, Category
 from django.contrib.auth.forms import UserCreationForm
-from  .forms import CreateUserForm
+# from  .forms import CreateUserForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -34,33 +34,3 @@ def book_detail(request, slug):
 def search_book(request):
     searched_books = Book.objects.filter(title__icontains = request.POST.get('name_of_book'))
     return render(request, 'search_book.html', {'searched_books':searched_books})
-
-def register_page(request):
-    register_form = CreateUserForm()
-    if request.method == 'POST':
-        register_form = CreateUserForm(request.POST)
-        if register_form.is_valid():
-            register_form.save()
-            messages.info(request, "Account Created Successfully!")
-            return redirect('login')
-           
-    return render(request, 'register.html', {'register_form': register_form})
-
-def login_page(request):
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password1')
-        user = authenticate(request, username = username, password = password)
-        if user is not None:
-            login(request, user)
-            return redirect('home')
-        else:
-            messages.info(request, "Invalid Credentials")
-        
-    
-    return render(request, 'login.html', {})
-
-def logout_user(request):
-    logout(request)
-    return redirect('home')
-    
