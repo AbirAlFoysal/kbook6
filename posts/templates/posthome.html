@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+{% block content %}</br>
+<center><h1>Posts</h1></center>
+<ul>
+{% comment %}{% for post in page_obj %}
+	<li><a href="{% url 'article-detail' post.pk %}">{{post.title}} </a>
+	 -<a href="{% url 'category' post.category|slugify %}">{{post.category}} </a>	
+	- {{post.author.first_name}} {{post.author.last_name}}</br>
+	{{post.snippet}}</li>
+	
+	{% if user.is_authenticated %}
+		{% if user.id == post.author.id %}
+			<small><a class ='btn btn-success' href="{% url 'edit-post' post.id %}" class='nav-link'>Edit</a></small>
+			<small><a class ='btn btn-danger' href="{% url 'delete-post' post.id %}" class='nav-link'>Delete</a></small>
+		{% endif %}
+	{% endif %}
+{% endfor %}			   {% endcomment %}
+<style>
+    .ellipse{
+     word-break: break-word;
+     overflow: hidden;
+     text-overflow: ellipsis;
+     display: -webkit-box;
+     line-height: 16px; /* fallback */
+     max-height: 200px; /* fallback */
+     -webkit-line-clamp: 10; /* number of lines to show */
+     -webkit-box-orient: vertical;
+  }
+  {% comment %} .shadow{
+    width: 70%;
+      box-shadow: 10px 30px 45px rgba(0, 0, 0, 0.3);
+     
+     
+      transition: background-color .5s, box-shadow .5s, margin-left .5s;
+    }
+    .shadow:hover{
+      margin-left: 2%;
+      background-color: #ffff;
+      box-shadow: -10px -10px 10px 10px rgba(0, 0, 0, 0.3);
+      transition: background-color .5s, box-shadow .5s, margin-left .5s;
+    } {% endcomment %}
+  </style>
+  {% for post in page_obj %}
+
+<div class="shadow border border-#ababab rounded " style="margin:auto; width:70%;" >
+<div class="card">
+<div class="card-header">
+<div class="article-metadata">
+  <img class="rounded-circle article-img" src="{{ post.author.profile.profile_pic.url }}"
+                           style="height:35px; width:35px;
+                           border: 0.25px solid #aaa">
+  <a class="mr-2" style="font-size: 20px; color: #565656; font-weight:550;" href="#">
+  {{post.author}}
+  </a>
+<small class="text-muted">
+  &nbsp&nbsp{{ post.post_date|date:"F d, Y" }}
+</small><br/>
+</div>
+</div>
+<a href="{% url 'article-detail' post.pk %}">
+<img class="card-img-top" src="{{ post.header_image.url }}" alt="Card image cap"></a>
+    <div class="card-body">
+      <h2 class="card-title" style=" text-align:center;" >
+<a href="{% url 'article-detail' post.pk %}" style="font-weight:750;">"{{ post.title|capfirst }}"</a></h2>
+     <hr> <p class="card-text"><div class="ellipse" style="color: #565656; ">
+        
+          {{ post.body|safe}}      </div>
+      </p>
+      <div>
+        
+<a href="{% url 'article-detail' post.pk %}" class="btn btn-primary float-right"
+      style="margin: auto"
+      >Read More...</a>
+
+
+        {% if user.is_authenticated %} 
+        {% if liked %}
+            <button type="submit", name="post_id", value="{{ post.id }} ", class='btn btn-danger btn-sm'>disLike</button>
+        {% else %}    
+            <button type="submit", name="post_id", value="{{ post.id }} ", class='btn btn-success btn-sm' style="padding:7px">Like</button>
+        {% endif %}
+        {% else %}
+        &nbsp&nbsp <small class="border border-dark rounded" style="padding:7px">Log in to like</small>
+        {% endif %}
+
+
+      
+      <hr>
+<small class="text-muted float-right">Likes({{post.likes.count}}) | Comments({{post.comments.count}})</small>
+
+
+    </div></div>
+  </div>
+  
+  </div>
+  
+  <br><br>
+  {% endfor %}	
+
+</ul>
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+<div style="aling-items: center">
+<nav aria-label="Page navigation example" >
+	<!--<ul class="pagination justify-content-center">-->
+  <ul class="pagination">
+  	<li class="page-item"><a class="page-link" href="?page=1">&laquo First</a></li>
+    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+    {% for i in pgz %}
+    <li class="page-item"><a class="page-link" href="?page={{ forloop.counter }}">{{forloop.counter}}</a></li>
+    {% endfor %}
+    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+    <li class="page-item"><a class="page-link" href="?page={{ venues.paginator.num_pages }}">Last&raquo </a></li>
+  </ul>
+</nav> 
+</div>
+
+
+    
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}
+            Delete blog post ...
+{% endblock %} 
+{% block content %}
+{% if user.is_authenticated %}
+	{% if user.id == post.author.id %}
+		<center><h1>Delete Post</h1></center>
+		<h3>Delete: {{post.title}}</h3>
+
+
+		<div class="form-goup">
+			<form method="POST">
+				{% csrf_token %}
+				<strong>Are you sure?!</strong></br>
+				<small><button class='btn btn-danger'>Delete</button></small>
+		</div>
+	{% else %}
+		<h5>You're not {{post.author.first_name}} {{post.author.last_name}}</h5>
+	{% endif %}
+	
+{% else %}  
+	<p style="text-align:center;" ><div class="alert alert-danger" style="text-align:center;" role="alert">
+		    
+	  You must be logged in.<a href="{% url 'login' %}" class="alert-link">Login</a>
+	</div></p>
+{% endif %}
+{% endblock %}

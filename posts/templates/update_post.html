@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}
+            Edit blog post ...
+{% endblock %} 
+{% block content %}
+{% if user.is_authenticated %}
+	{% if user.id == post.author.id %}
+		<center><h1>Post Editor</h1></center>
+			<div class="form-goup">
+				<form method="POST">
+					{% csrf_token %}
+					{{ form.media }}
+					{{ form.as_p }}
+					<small><button class='btn btn-secondary'>Update</button></small>
+			</div>
+	{% else %}
+		<h2>You cant edit this post</h2>
+	{% endif %}	
+{% else %}
+
+
+  
+<p style="text-align:center;" ><div class="alert alert-danger" style="text-align:center;" role="alert">
+	    
+  You must be logged in.<a href="{% url 'login' %}" class="alert-link">Login</a>
+</div></p>
+
+{% endif %}
+{% endblock %}

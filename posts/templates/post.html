@@ -1,0 +1,61 @@
+<style>
+  .ellipse{
+   word-break: break-word;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   line-height: 16px; /* fallback */
+   max-height: 200px; /* fallback */
+   -webkit-line-clamp: 10; /* number of lines to show */
+   -webkit-box-orient: vertical;
+}
+.shadow{
+  width: 70%;
+    box-shadow: 10px 30px 45px rgba(0, 0, 0, 0.3);
+   
+   
+    transition: background-color .5s, box-shadow .5s, margin-left .5s;
+  }
+  .shadow:hover{
+    margin-left: 2%;
+    background-color: #ffff;
+    box-shadow: -10px -10px 10px 10px rgba(0, 0, 0, 0.3);
+    transition: background-color .5s, box-shadow .5s, margin-left .5s;
+  }
+</style>
+{% comment %} <div class="shadow p-3 mb-5 bg-white rounded"> {% endcomment %}
+  <div class="shadow border border-#ababab rounded " style="margin:auto">
+
+<div class="card">
+  <div class="card-header">
+    <div class="article-metadata">
+        <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}"
+                         style="height:35px; width:35px;
+                         border: 0.25px solid #aaa">
+           <a class="mr-2" style="font-size: 20px; color: #565656; font-weight:550;" href="{% url 'user_posts' user.profile.id %}">
+{{post.author}}</a>&nbsp&nbsp
+           <small class="text-muted">
+             {{ post.date_posted|date:"F d, Y" }}
+             </small
+           ><br />
+         </div>
+  </div>
+  
+  
+  <img class="card-img-top" src="{{ post.header_image.url }}" alt="Card image cap">
+  <div class="card-body">
+    <h2 class="card-title" style=" text-align:center;" ><a href="{% url 'article-detail' post.pk %}" style="font-weight:750;">"{{ post.title }}"</a></h2>
+    <p class="card-text"><div class="ellipse" style="color: #565656; ">
+      
+        {{ post.body|safe}}      </div>
+    </p>
+    <a href="#" class="btn btn-success float-left">Like</a>
+    <a href="#" class="btn btn-primary float-right"
+    style="margin: auto"
+    >Read More...</a>
+  </div>
+</div>
+
+</div>
+
+<br><br>
